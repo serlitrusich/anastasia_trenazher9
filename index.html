@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Обособленное обстоятельство — цифровой тренажёр</title>
+  <style>
+    :root {
+      --navy: #102a43;
+      --blue: #1f67d2;
+      --blue-dark: #174ea6;
+      --blue-soft: #eaf3ff;
+      --cyan: #47b7e8;
+      --ink: #172334;
+      --muted: #617086;
+      --line: #d8e2ef;
+      --paper: #ffffff;
+      --page: #f3f7fc;
+      --success: #157347;
+      --success-bg: #e8f7ef;
+      --danger: #b42318;
+      --danger-bg: #fff0ee;
+      --warning: #8a5700;
+      --warning-bg: #fff7df;
+      --shadow: 0 18px 48px rgba(16, 42, 67, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--page);
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(71, 183, 232, 0.16), transparent 26rem),
+        radial-gradient(circle at 94% 2%, rgba(31, 103, 210, 0.13), transparent 25rem),
+        var(--page);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid rgba(71, 183, 232, 0.5);
+      outline-offset: 3px;
+    }
+
+    .app {
+      width: min(100% - 28px, 1020px);
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .brandbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--navy);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 13px;
+      color: white;
+      background: linear-gradient(145deg, var(--blue), var(--cyan));
+      box-shadow: 0 9px 18px rgba(31, 103, 210, 0.25);
+    }
+
+    .topic-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .screen {
+      animation: enter 0.28s ease-out;
+    }
+
+    .screen[hidden],
+    [hidden] {
+      display: none !important;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      border: 1px solid rgba(216, 226, 239, 0.9);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(25px, 5vw, 48px);
+    }
+
+    .hero::after {
+      position: absolute;
+      top: -90px;
+      right: -110px;
+      width: 270px;
+      height: 270px;
+      border: 36px solid rgba(71, 183, 232, 0.12);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin-bottom: 14px;
+      color: var(--navy);
+      font-size: clamp(2rem, 5.8vw, 4.3rem);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+    }
+
+    .lead {
+      position: relative;
+      z-index: 1;
+      max-width: 730px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.4vw, 1.18rem);
+    }
+
+    .theory-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0 0 24px;
+    }
+
+    .theory-card {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #fbfdff;
+    }
+
+    .theory-card h2 {
+      margin-bottom: 9px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .theory-card ul {
+      margin: 0;
+      padding-left: 19px;
+      color: #43536a;
+      font-size: 0.94rem;
+    }
+
+    .theory-card li + li {
+      margin-top: 7px;
+    }
+
+    .algorithm {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 26px;
+      padding: 16px 18px;
+      border-left: 5px solid var(--cyan);
+      border-radius: 14px;
+      color: #34465d;
+      background: #f0f9fd;
+    }
+
+    .algorithm strong {
+      color: var(--navy);
+    }
+
+    .form-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--navy);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 51px;
+      padding: 12px 14px;
+      border: 1px solid #bdcce0;
+      border-radius: 13px;
+      color: var(--ink);
+      background: white;
+    }
+
+    .field input::placeholder {
+      color: #8a98aa;
+    }
+
+    .section-title {
+      position: relative;
+      z-index: 1;
+      margin: 4px 0 11px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .level-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .level-card {
+      min-height: 132px;
+      padding: 17px;
+      border: 2px solid var(--line);
+      border-radius: 17px;
+      color: var(--ink);
+      background: white;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+    }
+
+    .level-card:hover {
+      transform: translateY(-2px);
+      border-color: #8eb8ee;
+    }
+
+    .level-card[aria-pressed="true"] {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+      box-shadow: 0 0 0 3px rgba(31, 103, 210, 0.1);
+    }
+
+    .level-card strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--navy);
+      font-size: 1.03rem;
+    }
+
+    .level-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.91rem;
+    }
+
+    .primary,
+    .secondary,
+    .ghost {
+      min-height: 50px;
+      padding: 12px 19px;
+      border-radius: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease;
+    }
+
+    .primary {
+      border: 1px solid var(--blue);
+      color: white;
+      background: linear-gradient(135deg, var(--blue), #2488db);
+      box-shadow: 0 10px 20px rgba(31, 103, 210, 0.2);
+    }
+
+    .primary:hover:not(:disabled),
+    .secondary:hover:not(:disabled),
+    .ghost:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .primary:disabled,
+    .secondary:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      box-shadow: none;
+    }
+
+    .secondary {
+      border: 1px solid #9ab4d3;
+      color: var(--blue-dark);
+      background: white;
+    }
+
+    .ghost {
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 0;
+      color: var(--blue-dark);
+      background: transparent;
+    }
+
+    .start-actions,
+    .final-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .privacy {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .history-box {
+      position: relative;
+      z-index: 1;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .history-box h2 {
+      margin-bottom: 9px;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .history-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: #f6f9fd;
+    }
+
+    .trainer-shell {
+      overflow: hidden;
+    }
+
+    .trainer-top {
+      padding: 18px clamp(17px, 4vw, 30px);
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #174f83);
+    }
+
+    .trainer-topline {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 15px;
+    }
+
+    .trainer-name {
+      font-weight: 800;
+    }
+
+    .trainer-level {
+      margin-top: 3px;
+      color: #cce5ff;
+      font-size: 0.86rem;
+    }
+
+    .timer {
+      min-width: 74px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.08);
+      text-align: center;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.17);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), #a1e1ff);
+      transition: width 0.28s ease;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 11px;
+      color: #dbeeff;
+      font-size: 0.82rem;
+    }
+
+    .stats span:nth-child(2) {
+      text-align: center;
+    }
+
+    .stats span:last-child {
+      text-align: right;
+    }
+
+    .task-card {
+      padding: clamp(20px, 4.5vw, 38px);
+    }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .task-number {
+      color: var(--blue-dark);
+      font-size: 0.87rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .step-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: #f1f5fa;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .task-card h2 {
+      margin-bottom: 7px;
+      color: var(--navy);
+      font-size: clamp(1.25rem, 3vw, 1.7rem);
+      line-height: 1.18;
+    }
+
+    .task-instruction {
+      margin-bottom: 21px;
+      color: var(--muted);
+    }
+
+    .source-sentence {
+      margin-bottom: 20px;
+      padding: 17px 18px;
+      border: 1px solid #cdd9e8;
+      border-radius: 16px;
+      color: var(--navy);
+      background: #f9fbfe;
+      font-size: clamp(1.1rem, 3vw, 1.42rem);
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .sentence-builder {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 92px;
+      margin-bottom: 12px;
+      padding: 18px;
+      border: 1px solid #bdcde0;
+      border-radius: 16px;
+      background: #fbfdff;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .sentence-word {
+      white-space: nowrap;
+    }
+
+    .comma-gap {
+      display: inline-grid;
+      width: 24px;
+      min-width: 24px;
+      height: 36px;
+      margin: 0 1px;
+      padding: 0;
+      place-items: end center;
+      border: 0;
+      border-radius: 8px;
+      color: #8b9aac;
+      background: transparent;
+      font-size: 1.25rem;
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .comma-gap:hover {
+      background: var(--blue-soft);
+    }
+
+    .comma-gap.selected {
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .microcopy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .choice {
+      display: flex;
+      width: 100%;
+      min-height: 52px;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 13px 14px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      color: var(--ink);
+      background: white;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .choice:hover {
+      border-color: #9dbce2;
+      background: #fbfdff;
+    }
+
+    .choice[aria-pressed="true"] {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .choice-marker {
+      display: grid;
+      width: 23px;
+      min-width: 23px;
+      height: 23px;
+      margin-top: 1px;
+      place-items: center;
+      border: 2px solid #9bb0c8;
+      border-radius: 7px;
+      color: white;
+      background: white;
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+
+    .choice[aria-pressed="true"] .choice-marker {
+      border-color: var(--blue);
+      background: var(--blue);
+    }
+
+    .feedback {
+      margin: 4px 0 17px;
+      padding: 13px 15px;
+      border-radius: 13px;
+      font-size: 0.93rem;
+      font-weight: 700;
+    }
+
+    .feedback.success {
+      border: 1px solid #9dd4b7;
+      color: var(--success);
+      background: var(--success-bg);
+    }
+
+    .feedback.error {
+      border: 1px solid #efb7b0;
+      color: var(--danger);
+      background: var(--danger-bg);
+    }
+
+    .feedback.info {
+      border: 1px solid #ead394;
+      color: var(--warning);
+      background: var(--warning-bg);
+    }
+
+    .task-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+    }
+
+    .explanation {
+      margin-bottom: 20px;
+      padding: 18px;
+      border: 1px solid #b9d4f6;
+      border-radius: 16px;
+      color: #28415f;
+      background: var(--blue-soft);
+    }
+
+    .explanation strong {
+      color: var(--navy);
+    }
+
+    .final-card {
+      overflow: hidden;
+    }
+
+    .final-head {
+      padding: clamp(26px, 5vw, 48px);
+      color: white;
+      background:
+        radial-gradient(circle at 90% 0, rgba(123, 213, 251, 0.25), transparent 19rem),
+        linear-gradient(135deg, var(--navy), var(--blue-dark));
+    }
+
+    .final-head .eyebrow {
+      color: white;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .final-head h1 {
+      margin-bottom: 9px;
+      color: white;
+      font-size: clamp(2rem, 6vw, 4rem);
+    }
+
+    .final-head p {
+      max-width: 700px;
+      margin-bottom: 0;
+      color: #dcecff;
+    }
+
+    .final-body {
+      padding: clamp(22px, 4.5vw, 38px);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 11px;
+      margin-bottom: 25px;
+    }
+
+    .result-box {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #f9fbfe;
+    }
+
+    .result-box span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .result-box strong {
+      color: var(--navy);
+      font-size: 1.25rem;
+    }
+
+    .mistakes-panel {
+      margin-bottom: 24px;
+    }
+
+    .mistakes-panel h2 {
+      margin-bottom: 10px;
+      color: var(--navy);
+      font-size: 1.1rem;
+    }
+
+    .mistake-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mistake-item {
+      padding: 14px 15px;
+      border-left: 4px solid #e6a539;
+      border-radius: 11px;
+      color: #43536a;
+      background: #fff9eb;
+    }
+
+    .mistake-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .no-mistakes {
+      padding: 15px;
+      border-radius: 13px;
+      color: var(--success);
+      background: var(--success-bg);
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 720px) {
+      .app {
+        width: min(100% - 20px, 1020px);
+        padding-top: 14px;
+      }
+
+      .topic-label {
+        display: none;
+      }
+
+      .hero,
+      .task-card,
+      .final-body {
+        padding: 20px;
+      }
+
+      .theory-grid,
+      .level-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .trainer-topline {
+        align-items: center;
+      }
+
+      .sentence-builder {
+        padding: 14px 12px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brandbar {
+        margin-bottom: 12px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .hero,
+      .task-card,
+      .final-body {
+        padding: 17px;
+      }
+
+      .theory-card {
+        padding: 14px;
+      }
+
+      .stats {
+        font-size: 0.75rem;
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .primary,
+      .secondary {
+        width: 100%;
+      }
+
+      .history-row {
+        display: grid;
+        gap: 3px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="brandbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">Л</span>
+        <span>LITRUSICH</span>
+      </div>
+      <div class="topic-label">Русский язык · пунктуация и синтаксис</div>
+    </div>
+
+    <section id="startScreen" class="screen card hero" aria-labelledby="mainTitle">
+      <div class="eyebrow">Цифровой тренажёр</div>
+      <h1 id="mainTitle">Обособленное обстоятельство</h1>
+      <p class="lead">Научись находить грамматическую основу, расставлять запятые и объяснять каждое решение. Во всех заданиях — только простые предложения.</p>
+
+      <div class="theory-grid">
+        <article class="theory-card">
+          <h2>Обособляем</h2>
+          <ul>
+            <li>одиночное деепричастие, если оно обозначает добавочное действие;</li>
+            <li>деепричастный оборот;</li>
+            <li>обстоятельство с <strong>несмотря на</strong> или <strong>невзирая на</strong>.</li>
+          </ul>
+        </article>
+        <article class="theory-card">
+          <h2>Не ставим запятые</h2>
+          <ul>
+            <li>внутри фразеологизма: <em>работать не покладая рук</em>;</li>
+            <li>при значении образа действия: <em>ответил не задумываясь</em>;</li>
+            <li>при временной границе: <em>начиная с понедельника</em>.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="algorithm"><strong>Алгоритм:</strong> найди грамматическую основу → убедись, что предложение простое → найди деепричастие или особую конструкцию → определи границы → проверь исключение → поставь запятые.</div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="studentName">Фамилия и имя</label>
+          <input id="studentName" type="text" maxlength="80" autocomplete="name" placeholder="Например: Иван Петров">
+        </div>
+        <div class="field">
+          <label for="studentClass">Класс</label>
+          <input id="studentClass" type="text" maxlength="12" placeholder="Например: 8А">
+        </div>
+      </div>
+
+      <h2 class="section-title">Выбери уровень</h2>
+      <div class="level-grid" role="group" aria-label="Выбор уровня">
+        <button class="level-card" type="button" data-level="basic" aria-pressed="false">
+          <strong>Базовый</strong>
+          <span>10 предложений с явными случаями обособления. Один полный разбор в четыре шага.</span>
+        </button>
+        <button class="level-card" type="button" data-level="advanced" aria-pressed="false">
+          <strong>Повышенный</strong>
+          <span>10 предложений с исключениями, однородными оборотами и сочетанием правил.</span>
+        </button>
+      </div>
+
+      <div class="start-actions">
+        <button id="startButton" class="primary" type="button" disabled>Начать тренировку</button>
+      </div>
+      <p class="privacy">Результат сохраняется только в этом браузере. Автоматической отправки учителю нет.</p>
+
+      <div id="historyBox" class="history-box" hidden>
+        <h2>Последние результаты</h2>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </section>
+
+    <section id="trainerScreen" class="screen card trainer-shell" hidden aria-live="polite">
+      <header class="trainer-top">
+        <div class="trainer-topline">
+          <div>
+            <div id="trainerName" class="trainer-name"></div>
+            <div id="trainerLevel" class="trainer-level"></div>
+          </div>
+          <div id="timer" class="timer" aria-label="Время">00:00</div>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <div class="stats">
+          <span id="progressText">Задание 1 из 10</span>
+          <span id="scoreText">Баллы: 0/40</span>
+          <span id="errorText">Ошибки: 0</span>
+        </div>
+      </header>
+
+      <div class="task-card">
+        <div class="task-meta">
+          <div id="taskNumber" class="task-number">Задание 1</div>
+          <div id="stepBadge" class="step-badge">Шаг 1 из 4</div>
+        </div>
+        <h2 id="taskTitle">Найдите грамматическую основу</h2>
+        <p id="taskInstruction" class="task-instruction"></p>
+        <div id="taskArea"></div>
+        <div id="feedback" class="feedback" hidden role="status"></div>
+        <div class="task-actions">
+          <button id="checkButton" class="primary" type="button">Проверить</button>
+          <button id="nextButton" class="primary" type="button" hidden>Следующее задание</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="finalScreen" class="screen card final-card" hidden aria-labelledby="finalTitle">
+      <div class="final-head">
+        <div class="eyebrow">Тренировка завершена</div>
+        <h1 id="finalTitle">Результат</h1>
+        <p id="finalMessage"></p>
+      </div>
+      <div class="final-body">
+        <div class="result-grid">
+          <div class="result-box">
+            <span>Баллы</span>
+            <strong id="finalScore">0/40</strong>
+          </div>
+          <div class="result-box">
+            <span>Процент</span>
+            <strong id="finalPercent">0%</strong>
+          </div>
+          <div class="result-box">
+            <span>Ошибки</span>
+            <strong id="finalErrors">0</strong>
+          </div>
+          <div class="result-box">
+            <span>Время</span>
+            <strong id="finalTime">00:00</strong>
+          </div>
+        </div>
+
+        <section class="mistakes-panel">
+          <h2>Что повторить</h2>
+          <div id="mistakeList" class="mistake-list"></div>
+        </section>
+
+        <div class="final-actions">
+          <button id="repeatButton" class="primary" type="button">Пройти ещё раз</button>
+          <button id="csvButton" class="secondary" type="button">Скачать результат CSV</button>
+          <button id="homeButton" class="ghost" type="button">На главный экран</button>
+        </div>
+        <p class="footer-note">CSV-файл создаётся на устройстве. Для автоматического сбора результатов потребуется отдельное подключение к таблице или серверу.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    "use strict";
+
+    const NONE = "Обособленного обстоятельства нет";
+    const STEPS = ["basis", "punctuation", "fragments", "rules"];
+    const STEP_LABELS = {
+      basis: "Грамматическая основа",
+      punctuation: "Знаки препинания",
+      fragments: "Обособленный фрагмент",
+      rules: "Объяснение правила"
+    };
+
+    const RULES = {
+      turn: "Деепричастный оборот обособляется.",
+      single: "Одиночное деепричастие обозначает добавочное действие и обособляется.",
+      despite: "Обстоятельство с «несмотря на» обособляется.",
+      homogeneous: "Между однородными деепричастиями или оборотами с одиночным союзом «и» запятая не ставится, но вся группа обособляется.",
+      idiom: "Фразеологическое сочетание с деепричастием не обособляется.",
+      adverbial: "Одиночное деепричастие близко по значению к наречию образа действия и не обособляется.",
+      starting: "Сочетание «начиная с» обозначает временную границу, выступает как предлог и не обособляется."
+    };
+
+    const basicTasks = [
+      {
+        id: "b1",
+        sentence: "Подул резкий ветер, подняв с земли сухую листву.",
+        basis: "ветер подул",
+        basisChoices: ["ветер подул", "ветер подняв", "листву подул"],
+        fragments: ["подняв с земли сухую листву"],
+        fragmentChoices: ["подняв с земли сухую листву", "резкий ветер", "с земли", NONE],
+        rules: ["turn"],
+        explanation: "Оборот «подняв с земли сухую листву» обозначает добавочное действие ветра и обособляется.",
+        hint: "Сначала найди слово «подняв» и зависимые от него слова."
+      },
+      {
+        id: "b2",
+        sentence: "Поезд помчался дальше, гремя колёсами на стыках рельсов.",
+        basis: "поезд помчался",
+        basisChoices: ["поезд помчался", "поезд гремя", "колёсами помчался"],
+        fragments: ["гремя колёсами на стыках рельсов"],
+        fragmentChoices: ["гремя колёсами на стыках рельсов", "помчался дальше", "на стыках рельсов", NONE],
+        rules: ["turn"],
+        explanation: "«Гремя колёсами на стыках рельсов» — деепричастный оборот после сказуемого. Он отделяется запятой.",
+        hint: "Определи границы оборота от слова «гремя» до конца предложения."
+      },
+      {
+        id: "b3",
+        sentence: "Ученик просидел над задачей целый час, не прерывая работы.",
+        basis: "ученик просидел",
+        basisChoices: ["ученик просидел", "ученик не прерывая", "работы просидел"],
+        fragments: ["не прерывая работы"],
+        fragmentChoices: ["не прерывая работы", "над задачей", "целый час", NONE],
+        rules: ["turn"],
+        explanation: "«Не прерывая работы» — деепричастный оборот, который обособляется от основной части предложения.",
+        hint: "Частица «не» входит в деепричастный оборот."
+      },
+      {
+        id: "b4",
+        sentence: "Обернувшись на звук, я увидел на пороге старого друга.",
+        basis: "я увидел",
+        basisChoices: ["я увидел", "я обернувшись", "друг увидел"],
+        fragments: ["обернувшись на звук"],
+        fragmentChoices: ["обернувшись на звук", "на пороге", "старого друга", NONE],
+        rules: ["turn"],
+        explanation: "Деепричастный оборот «обернувшись на звук» стоит в начале предложения и отделяется запятой.",
+        hint: "Главное действие — «увидел», добавочное — действие перед ним."
+      },
+      {
+        id: "b5",
+        sentence: "Солнце, выйдя из-за туч, ярко осветило луг.",
+        basis: "солнце осветило",
+        basisChoices: ["солнце осветило", "солнце выйдя", "луг осветило"],
+        fragments: ["выйдя из-за туч"],
+        fragmentChoices: ["выйдя из-за туч", "ярко", "солнце", NONE],
+        rules: ["turn"],
+        explanation: "Оборот «выйдя из-за туч» находится внутри предложения, поэтому выделяется двумя запятыми.",
+        hint: "Если оборот стоит внутри предложения, найди обе его границы."
+      },
+      {
+        id: "b6",
+        sentence: "Он стоял молча, опустив голову и сжав кулаки.",
+        basis: "он стоял",
+        basisChoices: ["он стоял", "он опустив", "он сжав"],
+        fragments: ["опустив голову", "сжав кулаки"],
+        fragmentChoices: ["опустив голову", "сжав кулаки", "молча", NONE],
+        rules: ["turn", "homogeneous"],
+        explanation: "«Опустив голову» и «сжав кулаки» — однородные деепричастные обороты. Вся группа отделяется от сказуемого, но перед одиночным союзом «и» запятая не ставится.",
+        hint: "Здесь два однородных добавочных действия, соединённых одиночным союзом «и»."
+      },
+      {
+        id: "b7",
+        sentence: "Не зная броду, не суйся в воду.",
+        basis: "не суйся",
+        basisChoices: ["не суйся", "не зная броду", "броду не суйся"],
+        fragments: ["не зная броду"],
+        fragmentChoices: ["не зная броду", "в воду", "броду", NONE],
+        rules: ["turn"],
+        explanation: "«Не зная броду» — деепричастный оборот перед сказуемым. Он отделяется запятой.",
+        hint: "В побудительном предложении подлежащее может не называться."
+      },
+      {
+        id: "b8",
+        sentence: "Несмотря на дождливую погоду, экскурсия состоялась.",
+        basis: "экскурсия состоялась",
+        basisChoices: ["экскурсия состоялась", "погода состоялась", "экскурсия несмотря"],
+        fragments: ["несмотря на дождливую погоду"],
+        fragmentChoices: ["несмотря на дождливую погоду", "дождливую погоду", "экскурсия", NONE],
+        rules: ["despite"],
+        explanation: "Обстоятельство уступки с сочетанием «несмотря на» обособляется.",
+        hint: "Обрати внимание на сочетание «несмотря на»."
+      },
+      {
+        id: "b9",
+        sentence: "Задумавшись, девочка не услышала шагов входящего в комнату брата.",
+        basis: "девочка не услышала",
+        basisChoices: ["девочка не услышала", "девочка задумавшись", "брат не услышал"],
+        fragments: ["задумавшись"],
+        fragmentChoices: ["задумавшись", "входящего в комнату", "шагов брата", NONE],
+        rules: ["single"],
+        explanation: "Одиночное деепричастие «задумавшись» обозначает отдельное добавочное действие и обособляется.",
+        hint: "Девочка сначала задумалась, поэтому не услышала шагов."
+      },
+      {
+        id: "b10",
+        sentence: "Окончив школу с отличием, брат поступил в университет.",
+        basis: "брат поступил",
+        basisChoices: ["брат поступил", "брат окончив", "школа поступила"],
+        fragments: ["окончив школу с отличием"],
+        fragmentChoices: ["окончив школу с отличием", "с отличием", "в университет", NONE],
+        rules: ["turn"],
+        explanation: "Деепричастный оборот «окончив школу с отличием» стоит перед основной частью и отделяется запятой.",
+        hint: "Главное действие — поступил; добавочное — окончил школу."
+      }
+    ];
+
+    const advancedTasks = [
+      {
+        id: "a1",
+        sentence: "Он работал не покладая рук всю предэкзаменационную неделю.",
+        basis: "он работал",
+        basisChoices: ["он работал", "он не покладая", "рук работал"],
+        fragments: [NONE],
+        fragmentChoices: ["не покладая рук", "всю предэкзаменационную неделю", "покладая рук", NONE],
+        rules: ["idiom"],
+        explanation: "«Не покладая рук» — устойчивое фразеологическое сочетание со значением «усердно». Запятые не ставятся.",
+        hint: "Проверь, можно ли заменить сочетание одним наречием «усердно»."
+      },
+      {
+        id: "a2",
+        sentence: "Старик, опираясь на трость, медленно поднялся по лестнице.",
+        basis: "старик поднялся",
+        basisChoices: ["старик поднялся", "старик опираясь", "трость поднялась"],
+        fragments: ["опираясь на трость"],
+        fragmentChoices: ["опираясь на трость", "медленно", "по лестнице", NONE],
+        rules: ["turn"],
+        explanation: "Оборот «опираясь на трость» находится внутри предложения и выделяется с двух сторон.",
+        hint: "Найди начало и конец добавочного действия внутри предложения."
+      },
+      {
+        id: "a3",
+        sentence: "Изучив условия задания и выписав ключевые слова, ученик успешно справился с тестом.",
+        basis: "ученик справился",
+        basisChoices: ["ученик справился", "ученик изучив", "слова справились"],
+        fragments: ["изучив условия задания", "выписав ключевые слова"],
+        fragmentChoices: ["изучив условия задания", "выписав ключевые слова", "успешно", NONE],
+        rules: ["turn", "homogeneous"],
+        explanation: "Два однородных деепричастных оборота соединены одиночным союзом «и». Между ними запятой нет, вся группа отделяется от основной части.",
+        hint: "Союз «и» соединяет два добавочных действия одного лица."
+      },
+      {
+        id: "a4",
+        sentence: "Туча, набирая силу и застилая всё небо, медленно двигалась с запада.",
+        basis: "туча двигалась",
+        basisChoices: ["туча двигалась", "туча набирая", "небо двигалось"],
+        fragments: ["набирая силу", "застилая всё небо"],
+        fragmentChoices: ["набирая силу", "застилая всё небо", "с запада", NONE],
+        rules: ["turn", "homogeneous"],
+        explanation: "Однородные обороты «набирая силу» и «застилая всё небо» находятся внутри предложения. Вся группа выделяется двумя запятыми; перед одиночным «и» запятой нет.",
+        hint: "Обороты образуют единую группу внутри предложения."
+      },
+      {
+        id: "a5",
+        sentence: "Он ответил на вопрос учителя не задумываясь.",
+        basis: "он ответил",
+        basisChoices: ["он ответил", "он не задумываясь", "учитель ответил"],
+        fragments: [NONE],
+        fragmentChoices: ["не задумываясь", "на вопрос учителя", "вопрос учителя", NONE],
+        rules: ["adverbial"],
+        explanation: "«Не задумываясь» означает «сразу, быстро» и характеризует образ действия. В этом контексте запятая не ставится.",
+        hint: "Задай вопрос «как ответил?» и попробуй заменить выражение наречием."
+      },
+      {
+        id: "a6",
+        sentence: "Несмотря на сильный снегопад, машины, гудя и мигая фарами, пробирались сквозь метель.",
+        basis: "машины пробирались",
+        basisChoices: ["машины пробирались", "машины гудя", "снегопад пробирался"],
+        fragments: ["несмотря на сильный снегопад", "гудя", "мигая фарами"],
+        fragmentChoices: ["несмотря на сильный снегопад", "гудя", "мигая фарами", "сквозь метель", NONE],
+        rules: ["despite", "single", "turn", "homogeneous"],
+        explanation: "Предложение простое: основа «машины пробирались». Обстоятельство с «несмотря на» отделяется запятой; однородные «гудя» и «мигая фарами» выделяются с двух сторон, а между ними перед одиночным «и» запятой нет.",
+        hint: "Здесь одна грамматическая основа, но две разные обособленные группы."
+      },
+      {
+        id: "a7",
+        sentence: "Начиная с понедельника в школе проходит неделя русского языка.",
+        basis: "неделя проходит",
+        basisChoices: ["неделя проходит", "школа проходит", "неделя начиная"],
+        fragments: [NONE],
+        fragmentChoices: ["начиная с понедельника", "в школе", "неделя русского языка", NONE],
+        rules: ["starting"],
+        explanation: "«Начиная с понедельника» обозначает временную границу и употребляется как предложное сочетание. Обособление не требуется.",
+        hint: "Сочетание отвечает на вопрос «с какого времени?»."
+      },
+      {
+        id: "a8",
+        sentence: "Поезд, шумно выпуская пар и замедляя ход, подходил к перрону.",
+        basis: "поезд подходил",
+        basisChoices: ["поезд подходил", "поезд выпуская", "пар подходил"],
+        fragments: ["шумно выпуская пар", "замедляя ход"],
+        fragmentChoices: ["шумно выпуская пар", "замедляя ход", "к перрону", NONE],
+        rules: ["turn", "homogeneous"],
+        explanation: "Два однородных деепричастных оборота образуют одну обособленную группу внутри предложения. Между ними перед одиночным союзом «и» запятая не ставится.",
+        hint: "Найди два добавочных действия поезда."
+      },
+      {
+        id: "a9",
+        sentence: "Улыбаясь, девочка протянула мне письмо.",
+        basis: "девочка протянула",
+        basisChoices: ["девочка протянула", "девочка улыбаясь", "письмо протянуло"],
+        fragments: ["улыбаясь"],
+        fragmentChoices: ["улыбаясь", "мне", "письмо", NONE],
+        rules: ["single"],
+        explanation: "В начале предложения «улыбаясь» обозначает отдельное добавочное действие: девочка улыбалась и протянула письмо. Деепричастие обособляется.",
+        hint: "Различай добавочное действие и значение образа действия."
+      },
+      {
+        id: "a10",
+        sentence: "Рассуждая таким образом и опираясь на правила, вы легко найдёте правильный ответ.",
+        basis: "вы найдёте",
+        basisChoices: ["вы найдёте", "вы рассуждая", "ответ найдёт"],
+        fragments: ["рассуждая таким образом", "опираясь на правила"],
+        fragmentChoices: ["рассуждая таким образом", "опираясь на правила", "легко", NONE],
+        rules: ["turn", "homogeneous"],
+        explanation: "Два однородных деепричастных оборота соединены одиночным союзом «и». Между ними запятая не ставится, после всей группы — ставится.",
+        hint: "Вся начальная группа относится к сказуемому «найдёте»."
+      }
+    ];
+
+    const elements = {
+      startScreen: document.getElementById("startScreen"),
+      trainerScreen: document.getElementById("trainerScreen"),
+      finalScreen: document.getElementById("finalScreen"),
+      studentName: document.getElementById("studentName"),
+      studentClass: document.getElementById("studentClass"),
+      startButton: document.getElementById("startButton"),
+      historyBox: document.getElementById("historyBox"),
+      historyList: document.getElementById("historyList"),
+      trainerName: document.getElementById("trainerName"),
+      trainerLevel: document.getElementById("trainerLevel"),
+      timer: document.getElementById("timer"),
+      progressFill: document.getElementById("progressFill"),
+      progressText: document.getElementById("progressText"),
+      scoreText: document.getElementById("scoreText"),
+      errorText: document.getElementById("errorText"),
+      taskNumber: document.getElementById("taskNumber"),
+      stepBadge: document.getElementById("stepBadge"),
+      taskTitle: document.getElementById("taskTitle"),
+      taskInstruction: document.getElementById("taskInstruction"),
+      taskArea: document.getElementById("taskArea"),
+      feedback: document.getElementById("feedback"),
+      checkButton: document.getElementById("checkButton"),
+      nextButton: document.getElementById("nextButton"),
+      finalMessage: document.getElementById("finalMessage"),
+      finalScore: document.getElementById("finalScore"),
+      finalPercent: document.getElementById("finalPercent"),
+      finalErrors: document.getElementById("finalErrors"),
+      finalTime: document.getElementById("finalTime"),
+      mistakeList: document.getElementById("mistakeList"),
+      repeatButton: document.getElementById("repeatButton"),
+      csvButton: document.getElementById("csvButton"),
+      homeButton: document.getElementById("homeButton")
+    };
+
+    let selectedLevel = "";
+    let session = null;
+    let timerHandle = null;
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let index = copy.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+      }
+      return copy;
+    }
+
+    function normalizeSet(values) {
+      return [...values].sort((a, b) => String(a).localeCompare(String(b), "ru"));
+    }
+
+    function setsEqual(left, right) {
+      const normalizedLeft = normalizeSet(left);
+      const normalizedRight = normalizeSet(right);
+      return normalizedLeft.length === normalizedRight.length
+        && normalizedLeft.every((value, index) => value === normalizedRight[index]);
+    }
+
+    function formatTime(totalSeconds) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function elapsedSeconds() {
+      if (!session) {
+        return 0;
+      }
+      return Math.max(0, Math.floor((Date.now() - session.startedAt) / 1000));
+    }
+
+    function showScreen(screen) {
+      elements.startScreen.hidden = screen !== "start";
+      elements.trainerScreen.hidden = screen !== "trainer";
+      elements.finalScreen.hidden = screen !== "final";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function validateStart() {
+      elements.startButton.disabled = !(
+        elements.studentName.value.trim()
+        && elements.studentClass.value.trim()
+        && selectedLevel
+      );
+    }
+
+    function selectLevel(level) {
+      selectedLevel = level;
+      document.querySelectorAll(".level-card").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.level === level));
+      });
+      validateStart();
+    }
+
+    function prepareTasks(level) {
+      const source = level === "basic" ? basicTasks : advancedTasks;
+      return shuffle(source).map((task) => {
+        const requiredRules = task.rules.map((ruleId) => RULES[ruleId]);
+        const otherRules = Object.entries(RULES)
+          .filter(([ruleId]) => !task.rules.includes(ruleId))
+          .map(([, label]) => label);
+        const ruleChoices = shuffle([
+          ...requiredRules,
+          ...shuffle(otherRules).slice(0, Math.max(0, 5 - requiredRules.length))
+        ]);
+        return {
+          ...task,
+          basisOrder: shuffle(task.basisChoices),
+          fragmentOrder: shuffle(task.fragmentChoices),
+          ruleOrder: ruleChoices,
+          correctRuleLabels: requiredRules
+        };
+      });
+    }
+
+    function startSession(level = selectedLevel) {
+      const student = elements.studentName.value.trim();
+      const className = elements.studentClass.value.trim();
+      if (!student || !className || !level) {
+        validateStart();
+        return;
+      }
+
+      clearInterval(timerHandle);
+      session = {
+        student,
+        className,
+        level,
+        tasks: prepareTasks(level),
+        taskIndex: 0,
+        step: "basis",
+        score: 0,
+        mistakes: [],
+        mistakeKeys: new Set(),
+        selectedBasis: new Set(),
+        selectedFragments: new Set(),
+        selectedRules: new Set(),
+        commaPositions: new Set(),
+        stageHadError: false,
+        notice: null,
+        startedAt: Date.now(),
+        finishedAt: null
+      };
+
+      try {
+        localStorage.setItem("obst_student", student);
+        localStorage.setItem("obst_class", className);
+      } catch (error) {
+        // Работа тренажёра не зависит от доступности локального хранилища.
+      }
+
+      elements.trainerName.textContent = `${student} · ${className}`;
+      elements.trainerLevel.textContent = level === "basic" ? "Базовый уровень" : "Повышенный уровень";
+      showScreen("trainer");
+      timerHandle = window.setInterval(() => {
+        elements.timer.textContent = formatTime(elapsedSeconds());
+      }, 1000);
+      renderTask();
+    }
+
+    function currentTask() {
+      return session.tasks[session.taskIndex];
+    }
+
+    function currentStepIndex() {
+      return STEPS.indexOf(session.step);
+    }
+
+    function updateHeader() {
+      const maxScore = session.tasks.length * STEPS.length;
+      const stepIndex = Math.max(0, currentStepIndex());
+      const fractionalProgress = (session.taskIndex + stepIndex / STEPS.length) / session.tasks.length;
+      elements.progressFill.style.width = `${Math.min(100, fractionalProgress * 100)}%`;
+      elements.progressText.textContent = `Задание ${session.taskIndex + 1} из ${session.tasks.length}`;
+      elements.scoreText.textContent = `Баллы: ${session.score}/${maxScore}`;
+      elements.errorText.textContent = `Ошибки: ${session.mistakes.length}`;
+      elements.taskNumber.textContent = `Задание ${session.taskIndex + 1}`;
+      elements.stepBadge.textContent = session.step === "explanation"
+        ? "Разбор ответа"
+        : `Шаг ${stepIndex + 1} из ${STEPS.length}`;
+      elements.timer.textContent = formatTime(elapsedSeconds());
+    }
+
+    function showFeedback(type, text) {
+      elements.feedback.hidden = false;
+      elements.feedback.className = `feedback ${type}`;
+      elements.feedback.textContent = text;
+    }
+
+    function hideFeedback() {
+      elements.feedback.hidden = true;
+      elements.feedback.textContent = "";
+      elements.feedback.className = "feedback";
+    }
+
+    function makeSentence(text, className = "source-sentence") {
+      const block = document.createElement("div");
+      block.className = className;
+      block.textContent = text;
+      return block;
+    }
+
+    function renderChoiceList(options, selectedSet, mode) {
+      const list = document.createElement("div");
+      list.className = "choice-list";
+
+      options.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "choice";
+        button.setAttribute("aria-pressed", String(selectedSet.has(option)));
+
+        const marker = document.createElement("span");
+        marker.className = "choice-marker";
+        marker.textContent = selectedSet.has(option) ? "✓" : "";
+        marker.setAttribute("aria-hidden", "true");
+
+        const label = document.createElement("span");
+        label.textContent = option;
+
+        button.append(marker, label);
+        button.addEventListener("click", () => {
+          if (mode === "single") {
+            selectedSet.clear();
+            selectedSet.add(option);
+          } else if (selectedSet.has(option)) {
+            selectedSet.delete(option);
+          } else {
+            if (option === NONE) {
+              selectedSet.clear();
+            } else {
+              selectedSet.delete(NONE);
+            }
+            selectedSet.add(option);
+          }
+          renderTask();
+        });
+        list.appendChild(button);
+      });
+      return list;
+    }
+
+    function parseSentence(sentence) {
+      return sentence.split(/\s+/).map((raw) => ({
+        text: raw.replace(/,/g, ""),
+        commaAfter: raw.includes(",")
+      }));
+    }
+
+    function renderCommaEditor(task) {
+      const tokens = parseSentence(task.sentence);
+      const builder = document.createElement("div");
+      builder.className = "sentence-builder";
+      builder.setAttribute("aria-label", "Предложение с интерактивными промежутками");
+
+      tokens.forEach((token, index) => {
+        const word = document.createElement("span");
+        word.className = "sentence-word";
+        word.textContent = token.text;
+        builder.appendChild(word);
+
+        if (index < tokens.length - 1) {
+          const gap = document.createElement("button");
+          gap.type = "button";
+          gap.className = `comma-gap${session.commaPositions.has(index) ? " selected" : ""}`;
+          gap.textContent = session.commaPositions.has(index) ? "," : "·";
+          gap.setAttribute(
+            "aria-label",
+            `${session.commaPositions.has(index) ? "Убрать" : "Поставить"} запятую после слова «${token.text.replace(/[.!?]$/g, "")}»`
+          );
+          gap.addEventListener("click", () => {
+            if (session.commaPositions.has(index)) {
+              session.commaPositions.delete(index);
+            } else {
+              session.commaPositions.add(index);
+            }
+            renderTask();
+          });
+          builder.appendChild(gap);
+        }
+      });
+
+      const note = document.createElement("p");
+      note.className = "microcopy";
+      note.textContent = "Нажимай на точки между словами: один раз — поставить запятую, второй — убрать.";
+      elements.taskArea.append(builder, note);
+    }
+
+    function getCorrectCommaPositions(sentence) {
+      const positions = new Set();
+      parseSentence(sentence).forEach((token, index) => {
+        if (token.commaAfter) {
+          positions.add(index);
+        }
+      });
+      return positions;
+    }
+
+    function renderTask() {
+      if (!session) {
+        return;
+      }
+
+      const task = currentTask();
+      updateHeader();
+      elements.taskArea.replaceChildren();
+      hideFeedback();
+      elements.checkButton.hidden = session.step === "explanation";
+      elements.nextButton.hidden = session.step !== "explanation";
+      elements.checkButton.disabled = false;
+
+      if (session.notice) {
+        showFeedback(session.notice.type, session.notice.text);
+        session.notice = null;
+      }
+
+      if (session.step === "basis") {
+        elements.taskTitle.textContent = "Найдите грамматическую основу";
+        elements.taskInstruction.textContent = "Выберите подлежащее и сказуемое. В предложении только одна грамматическая основа.";
+        elements.taskArea.append(
+          makeSentence(task.sentence.replace(/,/g, "")),
+          renderChoiceList(task.basisOrder, session.selectedBasis, "single")
+        );
+        elements.checkButton.disabled = session.selectedBasis.size === 0;
+      } else if (session.step === "punctuation") {
+        elements.taskTitle.textContent = "Расставьте запятые";
+        elements.taskInstruction.textContent = "Поставьте запятые только там, где они необходимы. Если запятые не нужны, сразу нажмите «Проверить».";
+        renderCommaEditor(task);
+      } else if (session.step === "fragments") {
+        elements.taskTitle.textContent = "Найдите обособленное обстоятельство";
+        elements.taskInstruction.textContent = "Можно выбрать несколько фрагментов. Если обособленного обстоятельства нет, отметьте соответствующий вариант.";
+        elements.taskArea.append(
+          makeSentence(task.sentence),
+          renderChoiceList(task.fragmentOrder, session.selectedFragments, "multiple")
+        );
+        elements.checkButton.disabled = session.selectedFragments.size === 0;
+      } else if (session.step === "rules") {
+        elements.taskTitle.textContent = "Объясните оформление";
+        elements.taskInstruction.textContent = "Выберите все правила, которые нужны для объяснения этого предложения.";
+        elements.taskArea.append(
+          makeSentence(task.sentence),
+          renderChoiceList(task.ruleOrder, session.selectedRules, "multiple")
+        );
+        elements.checkButton.disabled = session.selectedRules.size === 0;
+      } else {
+        elements.taskTitle.textContent = "Разбор завершён";
+        elements.taskInstruction.textContent = "Сверьте ход рассуждения и переходите дальше.";
+        const explanation = document.createElement("div");
+        explanation.className = "explanation";
+        const strong = document.createElement("strong");
+        strong.textContent = "Почему так: ";
+        explanation.append(strong, document.createTextNode(task.explanation));
+        elements.taskArea.append(makeSentence(task.sentence), explanation);
+        elements.nextButton.textContent = session.taskIndex === session.tasks.length - 1
+          ? "Завершить тренировку"
+          : "Следующее задание";
+      }
+    }
+
+    function addMistake(step) {
+      const task = currentTask();
+      const key = `${task.id}:${step}`;
+      if (session.mistakeKeys.has(key)) {
+        return;
+      }
+      session.mistakeKeys.add(key);
+      session.mistakes.push({
+        id: task.id,
+        sentence: task.sentence,
+        step: STEP_LABELS[step],
+        hint: task.hint
+      });
+    }
+
+    function handleWrong(step, message) {
+      session.stageHadError = true;
+      addMistake(step);
+      updateHeader();
+      showFeedback("error", `${message} Подсказка: ${currentTask().hint}`);
+    }
+
+    function completeStep(successMessage) {
+      if (!session.stageHadError) {
+        session.score += 1;
+      }
+      const nextIndex = currentStepIndex() + 1;
+      session.step = nextIndex < STEPS.length ? STEPS[nextIndex] : "explanation";
+      session.stageHadError = false;
+      session.notice = { type: "success", text: successMessage };
+      renderTask();
+    }
+
+    function checkCurrentStep() {
+      if (!session || session.step === "explanation") {
+        return;
+      }
+      const task = currentTask();
+
+      if (session.step === "basis") {
+        if (session.selectedBasis.has(task.basis)) {
+          completeStep(`Верно: грамматическая основа — «${task.basis}». Предложение простое.`);
+        } else {
+          handleWrong("basis", "Грамматическая основа определена неверно.");
+        }
+        return;
+      }
+
+      if (session.step === "punctuation") {
+        const correctPositions = getCorrectCommaPositions(task.sentence);
+        if (setsEqual(session.commaPositions, correctPositions)) {
+          completeStep("Запятые расставлены верно. Они останутся в предложении во время дальнейшего разбора.");
+        } else {
+          const countMessage = correctPositions.size === 0
+            ? "В этом предложении запятые могут быть не нужны."
+            : `Проверь количество и границы: в эталоне ${correctPositions.size} ${correctPositions.size === 1 ? "запятая" : "запятые"}.`;
+          handleWrong("punctuation", countMessage);
+        }
+        return;
+      }
+
+      if (session.step === "fragments") {
+        if (setsEqual(session.selectedFragments, new Set(task.fragments))) {
+          completeStep("Фрагмент или фрагменты определены верно.");
+        } else {
+          handleWrong("fragments", "Выбраны не все нужные фрагменты или добавлен лишний.");
+        }
+        return;
+      }
+
+      const correctRules = new Set(task.correctRuleLabels);
+      if (setsEqual(session.selectedRules, correctRules)) {
+        completeStep("Правило выбрано верно.");
+      } else {
+        handleWrong("rules", "Набор правил пока неточен.");
+      }
+    }
+
+    function nextTask() {
+      if (!session || session.step !== "explanation") {
+        return;
+      }
+      if (session.taskIndex >= session.tasks.length - 1) {
+        finishSession();
+        return;
+      }
+      session.taskIndex += 1;
+      session.step = "basis";
+      session.selectedBasis = new Set();
+      session.selectedFragments = new Set();
+      session.selectedRules = new Set();
+      session.commaPositions = new Set();
+      session.stageHadError = false;
+      session.notice = null;
+      renderTask();
+    }
+
+    function resultMessage(percent) {
+      if (percent >= 90) {
+        return "Отличный результат: правила применяются уверенно и последовательно.";
+      }
+      if (percent >= 75) {
+        return "Хороший результат. Осталось повторить отдельные исключения и границы оборотов.";
+      }
+      if (percent >= 60) {
+        return "Основная логика понятна, но некоторые шаги пока требуют внимания.";
+      }
+      return "Стоит ещё раз пройти уровень, опираясь на подсказки и разборы.";
+    }
+
+    function finishSession() {
+      clearInterval(timerHandle);
+      session.finishedAt = Date.now();
+      const maxScore = session.tasks.length * STEPS.length;
+      const percent = Math.round((session.score / maxScore) * 100);
+      const duration = Math.max(0, Math.floor((session.finishedAt - session.startedAt) / 1000));
+
+      elements.finalMessage.textContent = `${session.student}, ${resultMessage(percent)}`;
+      elements.finalScore.textContent = `${session.score}/${maxScore}`;
+      elements.finalPercent.textContent = `${percent}%`;
+      elements.finalErrors.textContent = String(session.mistakes.length);
+      elements.finalTime.textContent = formatTime(duration);
+      elements.mistakeList.replaceChildren();
+
+      if (session.mistakes.length === 0) {
+        const success = document.createElement("div");
+        success.className = "no-mistakes";
+        success.textContent = "Все четыре шага во всех заданиях выполнены верно с первой попытки.";
+        elements.mistakeList.appendChild(success);
+      } else {
+        session.mistakes.forEach((mistake) => {
+          const item = document.createElement("article");
+          item.className = "mistake-item";
+          const heading = document.createElement("strong");
+          heading.textContent = mistake.step;
+          const sentence = document.createElement("div");
+          sentence.textContent = mistake.sentence;
+          const hint = document.createElement("div");
+          hint.textContent = `Повтори: ${mistake.hint}`;
+          item.append(heading, sentence, hint);
+          elements.mistakeList.appendChild(item);
+        });
+      }
+
+      saveHistory({
+        student: session.student,
+        className: session.className,
+        level: session.level,
+        score: session.score,
+        maxScore,
+        percent,
+        errors: session.mistakes.length,
+        duration,
+        date: new Date(session.finishedAt).toLocaleString("ru-RU")
+      });
+      showScreen("final");
+    }
+
+    function readHistory() {
+      try {
+        const history = JSON.parse(localStorage.getItem("obst_history_v1") || "[]");
+        return Array.isArray(history) ? history : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveHistory(result) {
+      try {
+        const history = [result, ...readHistory()].slice(0, 10);
+        localStorage.setItem("obst_history_v1", JSON.stringify(history));
+      } catch (error) {
+        // Экспорт результата остаётся доступным, даже если localStorage заблокирован.
+      }
+    }
+
+    function renderHistory() {
+      const history = readHistory().slice(0, 3);
+      elements.historyList.replaceChildren();
+      elements.historyBox.hidden = history.length === 0;
+      history.forEach((result) => {
+        const row = document.createElement("div");
+        row.className = "history-row";
+        const left = document.createElement("span");
+        left.textContent = `${result.student} · ${result.className} · ${result.level === "basic" ? "базовый" : "повышенный"}`;
+        const right = document.createElement("strong");
+        right.textContent = `${result.score}/${result.maxScore} · ${result.date}`;
+        row.append(left, right);
+        elements.historyList.appendChild(row);
+      });
+    }
+
+    function csvEscape(value) {
+      const text = String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+
+    function downloadCsv() {
+      if (!session || !session.finishedAt) {
+        return;
+      }
+      const maxScore = session.tasks.length * STEPS.length;
+      const percent = Math.round((session.score / maxScore) * 100);
+      const duration = Math.max(0, Math.floor((session.finishedAt - session.startedAt) / 1000));
+      const mistakeSummary = session.mistakes
+        .map((mistake) => `${mistake.step}: ${mistake.sentence}`)
+        .join(" | ");
+      const rows = [
+        ["Фамилия и имя", "Класс", "Уровень", "Баллы", "Максимум", "Процент", "Ошибки", "Время", "Дата", "Затруднения"],
+        [
+          session.student,
+          session.className,
+          session.level === "basic" ? "Базовый" : "Повышенный",
+          session.score,
+          maxScore,
+          `${percent}%`,
+          session.mistakes.length,
+          formatTime(duration),
+          new Date(session.finishedAt).toLocaleString("ru-RU"),
+          mistakeSummary || "Нет"
+        ]
+      ];
+      const csv = `\uFEFF${rows.map((row) => row.map(csvEscape).join(";")).join("\r\n")}`;
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `obstoyatelstvo_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function returnHome() {
+      clearInterval(timerHandle);
+      session = null;
+      showScreen("start");
+      renderHistory();
+    }
+
+    document.querySelectorAll(".level-card").forEach((button) => {
+      button.addEventListener("click", () => selectLevel(button.dataset.level));
+    });
+    elements.studentName.addEventListener("input", validateStart);
+    elements.studentClass.addEventListener("input", validateStart);
+    elements.startButton.addEventListener("click", () => startSession());
+    elements.checkButton.addEventListener("click", checkCurrentStep);
+    elements.nextButton.addEventListener("click", nextTask);
+    elements.repeatButton.addEventListener("click", () => startSession(session.level));
+    elements.csvButton.addEventListener("click", downloadCsv);
+    elements.homeButton.addEventListener("click", returnHome);
+
+    try {
+      elements.studentName.value = localStorage.getItem("obst_student") || "";
+      elements.studentClass.value = localStorage.getItem("obst_class") || "";
+    } catch (error) {
+      // Пустые поля остаются доступными для ручного ввода.
+    }
+    renderHistory();
+    validateStart();
+  </script>
+</body>
+</html>
